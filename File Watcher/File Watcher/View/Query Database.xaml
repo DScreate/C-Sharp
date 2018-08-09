@@ -1,0 +1,82 @@
+﻿<Window x:Class="File_Watcher.View.Query_Database"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:File_Watcher"
+        mc:Ignorable="d"
+        Title="Query_Database" Height="450" Width="800">
+
+    <Grid>
+        <Grid.Background>LightGray</Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" MinHeight="20"/>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="1.5*"/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".5*" />
+            <ColumnDefinition Width=".5*" />
+            <ColumnDefinition Width="2.5*" />
+
+            <ColumnDefinition Width="2.5*"/>
+            <ColumnDefinition Width=".5*"/>
+            <ColumnDefinition Width=".5*" />
+
+
+        </Grid.ColumnDefinitions>
+        <Label Name="LabelQueryInstruction" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" FontSize="16" HorizontalAlignment="Center">
+            
+            <Run Text="Input Extension to Query With"></Run>
+        </Label>
+
+        <ComboBox Name="ComboBoxQueryInput" Grid.Column="2" Grid.Row="2" FontSize="28">
+            <ComboBoxItem Name="ComboBoxItemTxt" Content=".txt" />
+            <ComboBoxItem Name="ComboBoxItemPdf" Content=".pdf" />
+            <ComboBoxItem Name="ComboBoxItemCs" Content=".cs" />
+            <ComboBoxItem Name="ComboBoxItemDoc" Content=".docx" />
+            <ComboBoxItem Name="ComboBoxItemDir" Content="Directory"/>
+            <ComboBoxItem Name="ComboBoxItemOther" Content="Other" Selected="ComboBoxItemOther_OnSelected"/>
+
+        </ComboBox>
+        <!--<TextBox Name="TextBoxQueryInput" Grid.Column="2" Grid.Row="2" FontSize="28" Text="Input Extension..."/>-->
+
+        <Button Name="ButtonQuerySubmit" Grid.Column="3" Grid.Row="2" Margin="5,2,5,2" ToolTip="Submit extension for query" Click="ButtonQuerySubmit_OnClick">
+            <Button.Content>
+                <TextBlock Text="Submit" FontSize="22" FontWeight="Bold"></TextBlock>
+            </Button.Content>
+        </Button>
+        <DataGrid Name="QueryDataGrid" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Background="Gray" AlternatingRowBackground="Gainsboro" AlternationCount="2"/>
+
+            <Button Name="ButtonClearDb" Grid.Column="2" Grid.Row="4" Margin="5,7,5,7" Grid.ColumnSpan="2" Click="ButtonClearDb_OnClick">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="AliceBlue"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightCoral"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            <Button.Content>
+                    <TextBlock Text="Clear Database!" FontSize="22" FontWeight="Bold"></TextBlock>
+                </Button.Content>
+        </Button>
+
+        </Grid>
+</Window>

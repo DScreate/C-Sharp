@@ -1,0 +1,143 @@
+﻿<Window x:Class="File_Watcher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:File_Watcher.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" MinHeight="20"/>
+            <RowDefinition Height=".5*" />
+            <RowDefinition Height="1.5*" />
+
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="1.5*"/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".5*" />
+            <ColumnDefinition Width=".5*" />
+
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width=".5*"/>
+            <ColumnDefinition Width=".5*" />
+
+
+        </Grid.ColumnDefinitions>
+        <DockPanel VerticalAlignment="Top" Grid.Row="0" Grid.ColumnSpan="5">
+            <Menu DockPanel.Dock="Top"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition MinHeight="16"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <Menu IsMainMenu="True" Grid.Row="0">
+                    <MenuItem x:Name="MnuFile" Header="_File">
+                        <!--<MenuItem Header="_New" Click="MainMenu_File_NewClick" />-->
+                        <MenuItem Header="_Load" Click="MainMenu_File_LoadClick" />
+                        <MenuItem Header="_Save" Click="MainMenu_File_SaveClick"/>
+
+                        <Separator />
+                        <MenuItem Header="_Query Database" Click="MainMenu_File_QueryClick"></MenuItem>
+                    </MenuItem>
+                    <!--<MenuItem Header="_Edit" /> -->
+                    <MenuItem x:Name="MnuAbout" Header="_About" >
+                        <MenuItem Header="_Help" Click="MainMenu_About_HelpClick" />
+                        <MenuItem Header="_Version" Click="MainMenu_About_VersionClick" />
+                        <Separator />
+                        <MenuItem Header="_Credits" Click="MainMenu_About_CreditsClick" />
+                    </MenuItem>
+                </Menu>
+                <ToolBarTray Grid.Row="1" MinHeight="25" >
+                    <ToolBar x:Name="MainToolbar" OverflowMode="AsNeeded" HorizontalAlignment="Stretch">
+                        <Button Name="ButtonToolbarMenuStart" Click="ToolbarMenu_StartClick" IsEnabled="True" ToolTip="Start Watching">
+                            <StackPanel>
+
+                                <Image Name="ButtonToolbarMenuStartImage" Source="/View/Images/arrow_right green.png" Width="22" Height="Auto"/>
+                            </StackPanel>
+                        </Button>
+                        <Separator />
+                        <Button Name="ButtonToolbarMenuStop" Click="ToolbarMenu_StopClick" IsEnabled="False" Width="22" Height="Auto" ToolTip="Stop Watching">
+                            <StackPanel>
+                                <Image Name="ButtonToolbarMenuStopImage" Source="/View/Images/minus.ico"/>
+                            </StackPanel>
+                        </Button>
+                        <Separator />
+
+                        
+                        <Button Name ="ButtonToolbarMenuSave" Click="ToolBarMenu_WriteClick" Width="22" Height="Auto" ToolTip="Save to DataBase">
+                            <StackPanel>
+                                <Image Source="/View/Images/arrow_into box.ico"/>
+                            </StackPanel>
+                        </Button>
+                        <Separator />
+                        <!--
+                        <Button Name="ButtonToolbarMenuLoad" Click="ButtonToolbarMenuLoad_OnClick" Width="22" Height="Auto">
+                            <StackPanel>
+                                <Image Source="/View/Images/arrow_from box.ico"/>
+                            </StackPanel>
+                        </Button>
+                        -->
+                    </ToolBar>
+                </ToolBarTray>
+
+
+            </Grid>
+
+        </DockPanel>
+        <TextBlock TextWrapping="WrapWithOverflow" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2">
+            <Run Text="Select a file extension, a directory and click Watch to begin monitoring"/>
+        </TextBlock>
+
+        <Grid Grid.Row ="2" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+
+
+
+
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Run Text="Input Directory"></Run>
+            </TextBlock>
+            <ComboBox Name="ComboBoxDirectoryInput" Grid.Row="0" Grid.Column="1" Margin="0,5,0,5">
+                <ComboBoxItem  x:Name="ComboBoxItemDirChoice1" Content="Browse..." Selected="ComboBoxItemDirChoice1_OnSelected"/>
+                <ComboBoxItem  x:Name="ComboBoxItemDirChoice2" Content="Manual Input..." Selected="ComboBoxItemDirChoice2_OnSelected"/>
+            </ComboBox>
+
+            <Button Name="BtnWatch" Grid.Row="1" Grid.Column="0" Click="BtnWatch_OnClick" Margin="55,5,55,5">
+                <Run Name="BtnWatchText" Text="Watch"></Run>
+            </Button>
+
+            <ComboBox Name="ComboBoxExtensionInput" Text="Is not open" Grid.Column="1" Grid.Row="1" Margin="0,5,0,5">
+                <ComboBoxItem  x:Name="ComboBoxItemExtChoice1" Content="Everything" Selected="ComboBoxItemExtChoice1_OnSelected"/>
+
+                <ComboBoxItem  x:Name="ComboBoxItemExtChoice2" Content="Text files (.txt)" Selected="ComboBoxItemExtChoice2_OnSelected"/>
+                <ComboBoxItem  x:Name="ComboBoxItemExtChoice3" Content="PDf files (.pdf)" Selected="ComboBoxItemExtChoice3_OnSelected"/>
+                <ComboBoxItem  x:Name="ComboBoxItemExtChoice4" Content="C# files (.cs)" Selected="ComboBoxItemExtChoice4_OnSelected"/>
+                <ComboBoxItem  x:Name="ComboBoxItemExtChoice5" Content="Binary Files (.bin)" Selected="ComboBoxItemExtChoice5_OnSelected"/>
+                <ComboBoxItem  x:Name="ComboBoxItemExtChoice6" Content="Other..." Selected="ComboBoxItemExtChoice6_OnSelected"/>
+
+
+            </ComboBox>
+
+
+        </Grid>
+
+        <Border Grid.Row="3" Grid.Column="2" BorderThickness="1" BorderBrush="Black">
+            <ScrollViewer>
+                <TextBlock Name="TbConsole" TextWrapping="Wrap" />
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Window>
